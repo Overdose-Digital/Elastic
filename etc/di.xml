@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Overdose\Elastic\Model\Indexer\CmsPages">
+        <arguments>
+            <argument name="dimensionProvider" xsi:type="object" shared="false">
+                Magento\Store\Model\StoreDimensionProvider
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\Elasticsearch\Model\Adapter\FieldMapper\FieldMapperResolver">
+        <arguments>
+            <argument name="fieldMappers" xsi:type="array">
+                <item name="cms_pages_index" xsi:type="string">Overdose\Elastic\Model\Adapter\FieldMapper\CmsFieldMapper</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\Elasticsearch\SearchAdapter\Aggregation\Builder">
+        <arguments>
+            <argument name="dataProviderContainer" xsi:type="array">
+                <item name="cms_pages_index" xsi:type="object">Magento\Elasticsearch\SearchAdapter\Dynamic\DataProvider</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\Elasticsearch7\SearchAdapter\Mapper">
+        <plugin name="add_source_to_query" type="Overdose\Elastic\Model\Elasticsearch\SearchAdapter\Mapper" />
+    </type>
+
+
+    <type name="Magento\Elasticsearch\SearchAdapter\DocumentFactory">
+        <plugin name="add_source_to_document" type="Overdose\Elastic\Model\Elasticsearch\DocumentFactory" />
+    </type>
+</config>

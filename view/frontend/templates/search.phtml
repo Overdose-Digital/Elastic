@@ -1,0 +1,8 @@
+<?php
+$pages = $block->getCollection();
+?>
+
+<?php foreach ($pages as $page): ?>
+    <?php $data = $page->getCustomAttributes() ?>
+    <div><?= $data['source']['title'] ?></div>
+<?php endforeach; ?>

@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Indexer/etc/indexer.xsd">
+    <indexer id="cms_pages_index" view_id="cms_pages_index" class="Overdose\Elastic\Model\Indexer\CmsPages" primary="cms_pages">
+        <title translate="true">Elastic Search CMS Index</title>
+        <description translate="true">Save CMS pages to Elastic Search</description>
+
+        <fieldset name="cms_pages" source="Magento\Cms\Model\ResourceModel\Page\Collection">
+            <field name="store_website_id" xsi:type="filterable" dataType="int"/>
+            <field name="store_group_id" xsi:type="filterable" dataType="int"/>
+            <field name="store_id" xsi:type="filterable" dataType="int"/>
+        </fieldset>
+        <saveHandler class="Magento\Elasticsearch\Model\Indexer\IndexerHandler"/>
+        <structure class="Magento\Elasticsearch\Model\Indexer\IndexStructure"/>
+    </indexer>
+</config>
